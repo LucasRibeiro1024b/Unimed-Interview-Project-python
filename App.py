@@ -1,3 +1,4 @@
+from doctest import master
 import re
 from tkinter import *
 from Contact import Contact
@@ -12,7 +13,7 @@ class Application(Frame):
     self.container1.columnconfigure(0, weight=2)
     self.container1.rowconfigure(0, weight=1)
 
-    self.labelSearch = Label(self.container1, text="Searching by id")
+    self.labelSearch = Label(self.container1, text="Pesquisa por id")
     self.labelSearch.grid(column=0, row=0, columnspan=3, sticky=(N, S, E, W))
 
     self.labelId = Label(self.container1, text="Id")
@@ -24,7 +25,7 @@ class Application(Frame):
     #The reason for a hidden id is because cleanInputs() is cleaning the id input and I can't get it to delete a contact, so I'm gonna store the previous id searched and use it in my delete method.
     self.hiddenId = 0
 
-    self.buttonSearchId = Button(self.container1, text="Search")
+    self.buttonSearchId = Button(self.container1, text="Pesquisar")
     self.buttonSearchId["command"] = self.searchId
     self.buttonSearchId.grid(column=2, row=1, sticky=(N, S, E, W))
 
@@ -36,10 +37,10 @@ class Application(Frame):
     self.container2.columnconfigure(0, weight=2)
     self.container2.rowconfigure(0, weight=1)
 
-    self.labelContact = Label(self.container2, text="Contact")
+    self.labelContact = Label(self.container2, text="Contato")
     self.labelContact.grid(column=0, row=0, columnspan=3)
 
-    self.labelName = Label(self.container2, text="Name")
+    self.labelName = Label(self.container2, text="Nome")
     self.labelName.grid(column=0, row=1, sticky=(N, S, E, W))
 
     self.inputName = Entry(self.container2)
@@ -49,7 +50,7 @@ class Application(Frame):
     self.labelNameError["width"] = 15
     self.labelNameError.grid(column=2, row=1, sticky=(N, S, E, W))
 
-    self.labelNumber = Label(self.container2, text="Number")
+    self.labelNumber = Label(self.container2, text="Número")
     self.labelNumber.grid(column=0, row=2, sticky=(N, S, E, W))
 
     self.inputNumber = Entry(self.container2)
@@ -77,21 +78,21 @@ class Application(Frame):
     self.container3.columnconfigure(0, weight=2)
     self.container3.rowconfigure(0, weight=1)
 
-    self.buttonInsert = Button(self.container3, width=10, text="Insert")
+    self.buttonInsert = Button(self.container3, width=10, text="INSERIR")
     self.buttonInsert["command"] = self.insert
     self.buttonInsert.grid(column=1, row=3, sticky=(E))
 
-    self.buttonRemove = Button(self.container3, width=10, text="Delete")
+    self.buttonRemove = Button(self.container3, width=10, text="DELETAR")
     self.buttonRemove["command"] = self.delete
     self.buttonRemove.grid(column=2, row=3, sticky=(W))
 
-    self.buttonAlter = Button(self.container3, width=10, text="Update")
+    self.buttonAlter = Button(self.container3, width=10, text="ATUALIZAR")
     self.buttonAlter["command"] = self.update
     self.buttonAlter.grid(column=3, row=3, sticky=(W))
 
-    self.buttonReport = Button(self.container3, width=10, text="Contacts")
+    self.buttonReport = Button(self.container3, width=20, text="LISTA DE CONTATOS")
     self.buttonReport["command"] = self.report
-    self.buttonReport.grid(column=4, row=3, sticky=(W))
+    self.buttonReport.grid(column=2, row=4, sticky=(W))
 
     for child in self.container3.winfo_children(): 
       child.grid_configure(padx=3, pady=3)
@@ -152,15 +153,17 @@ class Application(Frame):
       
   def report(self):
     print("Opening new windows.")
-    root = Tk()
+    root = Toplevel(master)
     root.title("Report")
+    root.columnconfigure(0, weight=1)
+    root.rowconfigure(0, weight=1)
     myApp = List(root)
     myApp.mainloop()
 
   def validateInputs(self):
     allValid = True
 
-    if len(self.inputName.get()) <= 40:
+    if len(self.inputName.get()) <= 50:
       self.inputName["background"] = "white"
       self.labelNameError["text"] = "OK!"
     else:

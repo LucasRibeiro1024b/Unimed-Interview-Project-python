@@ -1,6 +1,7 @@
 import re
 from tkinter import *
 from Contact import Contact
+from List import List
 
 class Application(Frame):
   def __init__(self, master):
@@ -150,14 +151,11 @@ class Application(Frame):
       self.labelResult["text"] = "Invalid inputs."
       
   def report(self):
-    print("dnksajd")
-    # root = Tk()
-    # root.title("Report")
-    # label = Label(root, text=msg)
-    # label.pack(side="top", fill="x", pady=10)
-    # B1 = Button(root, text="Okay", command = root.destroy)
-    # B1.pack()
-    # popup.mainloop()
+    print("Opening new windows.")
+    root = Tk()
+    root.title("Report")
+    myApp = List(root)
+    myApp.mainloop()
 
   def validateInputs(self):
     allValid = True
@@ -205,7 +203,7 @@ class Application(Frame):
 
 root = Tk()
 root.title("Agenda")
-root.geometry("400x280+100+210")
+#root.geometry("400x280+100+210")
 
 myApp = Application(root)
 
